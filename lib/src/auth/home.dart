@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int counter = 0; // Variável counter com estado interno
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +33,30 @@ class Home extends StatelessWidget {
         color: Colors.white, // Cor de fundo do corpo da página
         child: Column(
           children: [
-            // Aqui você pode adicionar os widgets que representam o conteúdo da página
             Expanded(
-              child: Container(
-                color: Colors.blue,
-                // Widget para exibir o feed de postagens
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Counter: $counter', // Exibe o valor do contador
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          counter++;
+                        });
+                      },
+                      child: const Text('Incrementar'),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
