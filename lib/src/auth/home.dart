@@ -8,20 +8,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Colors.green,
       body: Column(
         children: [
-          SizedBox(
-            height: 100,
-            child: Container(
-              color: Colors.yellow,
-            ),
-          ),
-          ListView(
-            children: const [],
-          ),
-          SizedBox(
-            height: 100,
+          Expanded(
             child: Container(
               color: Colors.blue,
             ),
