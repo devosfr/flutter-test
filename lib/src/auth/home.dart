@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -19,9 +20,9 @@ class Home extends StatelessWidget {
           ListView(
             children: const [],
           ),
-          const SizedBox(
+          SizedBox(
             height: 100,
-            child: BottomAppBar(
+            child: Container(
               color: Colors.blue,
             ),
           )
