@@ -1,4 +1,6 @@
 // ignore: file_names
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,8 @@ import 'package:instagram/src/components/text-filed.dart';
 class SignIn extends StatelessWidget {
   SignIn({super.key});
   final _formKey = GlobalKey<FormState>();
+  // ignore: unused_field
+  bool _isloading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class SignIn extends StatelessWidget {
                   ),
                 )),
 
-            // TextFields mark
+            // TextFields
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: Form(
@@ -105,25 +109,36 @@ class SignIn extends StatelessWidget {
                     ),
                     backgroundColor: const Color(0xFF0096f9),
                   ),
-                  onPressed: () {
-                    if (!_formKey.currentState!.validate()) {
-                      return;
-                    }
+                  onPressed: _isloading
+                      ? null
+                      : () async {
+                          _isloading = true;
+                          FocusScope.of(context).unfocus();
+                          if (!_formKey.currentState!.validate()) {
+                            _isloading = false;
+                            return;
+                          }
+                          await Future.delayed(const Duration(seconds: 10));
 
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const Home(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Log in',
-                    style: TextStyle(
-                      color: Colors.white, // Cor do texto
-                      fontSize: 16, // Tamanho da fonte
-                      fontWeight: FontWeight.bold, // Peso da fonte
-                    ),
-                  ),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ),
+                          );
+                        },
+                  // mark
+                  child: _isloading
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : const Text(
+                          'Log in',
+                          style: TextStyle(
+                            color: Colors.white, // Cor do texto
+                            fontSize: 16, // Tamanho da fonte
+                            fontWeight: FontWeight.bold, // Peso da fonte
+                          ),
+                        ),
                 ),
               ),
             ),
